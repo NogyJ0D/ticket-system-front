@@ -28,7 +28,7 @@ const Tickets = () => {
   }
 
   return (
-    <div className='flex flex-col items-center w-full px-2 gap-4'>
+    <div className='flex flex-col items-center w-full gap-4 px-2'>
       {
         tickets.loading &&
           <h1 className='text-4xl font-bold'>Cargando...</h1>
@@ -38,7 +38,7 @@ const Tickets = () => {
           <>
             <h1 className='text-4xl font-bold'>Tickets</h1>
             <div
-              className='flex flex-col w-full gap-4 p-4 font-semibold text-white border-2 border-black bg-blue-500'
+              className='flex flex-col w-full gap-4 p-4 font-semibold text-white bg-blue-500 border-2 border-black'
             >
               <div className='flex items-center justify-between'>
                 <p>Ver por filtros</p>
@@ -47,11 +47,11 @@ const Tickets = () => {
               {
                 openFilters &&
                   <form onSubmit={handleSubmit(onSubmit)} className='flex flex-col gap-4'>
-                    <div className='flex gap-2 items-center'>
+                    <div className='flex items-center gap-2'>
                       <label>Filtro:</label>
                       <select
                         id='filter'
-                        className='p-2 py-2 border-2 w-full outline-none bg-blue-600 focus:bg-blue-700 rounded-xl border-black'
+                        className='w-full p-2 py-2 bg-blue-600 border-2 border-black outline-none focus:bg-blue-700 rounded-xl'
                         defaultValue='none'
                         {...register('filter', { required: true })}
                       >
@@ -60,11 +60,11 @@ const Tickets = () => {
                         <option value='closed.status'>Cerrado</option>
                       </select>
                     </div>
-                    <div className='flex gap-2 items-center'>
+                    <div className='flex items-center gap-2'>
                       <label>Parámetro:</label>
                       <select
                         id='param'
-                        className='p-2 py-2 border-2 w-full outline-none bg-blue-600 focus:bg-blue-700 rounded-xl border-black'
+                        className='w-full p-2 py-2 bg-blue-600 border-2 border-black outline-none focus:bg-blue-700 rounded-xl'
                         defaultValue='none'
                         {...register('param', { required: true })}
                       >
@@ -78,7 +78,7 @@ const Tickets = () => {
                       <select
                         id='limit'
                         defaultValue='20'
-                        className='p-2 py-2 border-2 outline-none bg-blue-600 focus:bg-blue-700 rounded-xl border-black'
+                        className='p-2 py-2 bg-blue-600 border-2 border-black outline-none focus:bg-blue-700 rounded-xl'
                         {...register('limit', { required: true })}
                       >
                         <option value='10'>10</option>
@@ -89,13 +89,13 @@ const Tickets = () => {
                       </select>
                       <label htmlFor='limitNumber'>tickets.</label>
                     </div>
-                    <button className='px-2 font-bold text-white border-2 rounded-full hover:bg-blue-700 bg-blue-600 border-black'>Buscar</button>
+                    <button className='px-2 font-bold text-white bg-blue-600 border-2 border-black rounded-full hover:bg-blue-700'>Buscar</button>
                   </form>
               }
             </div>
-            <table className='border-separate rounded-sm w-full bg-black'>
+            <table className='w-full bg-black border-separate rounded-sm'>
               <thead className=''>
-                <tr className='bg-blue-500 text-white'>
+                <tr className='text-white bg-blue-500'>
                   <th className='px-8'>Título</th>
                   <th className='px-8'>Email</th>
                   <th className='px-2'>Visto</th>
@@ -104,20 +104,20 @@ const Tickets = () => {
               </thead>
               <tbody className='bg-white'>
                 {
-                  tickets.docs.map(ticket => {
+                  tickets.docs?.map(ticket => {
                     return (
                       <tr className='' key={ticket._id}>
-                        <td onClick={() => dispatch(setSelectedTicket(ticket))} to={`/tickets/${ticket._id}`} className='px-2 cursor-pointer break-all text-sky-600 underline'>{ticket.title}</td>
+                        <td onClick={() => dispatch(setSelectedTicket(ticket))} to={`/tickets/${ticket._id}`} className='px-2 underline break-all cursor-pointer text-sky-600'>{ticket.title}</td>
                         <td className='px-2 break-all'>{ticket.email}</td>
-                        <td><input className='text-center w-full' type='checkbox' readOnly checked={ticket.viewed.status} /></td>
-                        <td><input className='text-center w-full' type='checkbox' readOnly checked={ticket.closed.status} /></td>
+                        <td><input className='w-full text-center' type='checkbox' readOnly checked={ticket.viewed.status} /></td>
+                        <td><input className='w-full text-center' type='checkbox' readOnly checked={ticket.closed.status} /></td>
                       </tr>
                     )
                   })
                 }
               </tbody>
             </table>
-            <div className='flex gap-2 font-semibold text-xl'>
+            <div className='flex gap-2 text-xl font-semibold'>
               <p>Tickets totales: {tickets.totalDocs}</p>
               <p />
             </div>

@@ -12,7 +12,10 @@ export const login = createAsyncThunk('user/login', ({ email, password }, thunkA
 
 export const validate = createAsyncThunk('user/validate', (data, thunkAPI) => {
   return post('/auth/validate')
-    .then(res => { return res })
+    .then(res => {
+      if (!res.email) return thunkAPI.rejectWithValue(res.message)
+      return res
+    })
 })
 
 const userSlice = createSlice({
@@ -68,6 +71,13 @@ const userSlice = createSlice({
     builder.addCase(validate.rejected, (state, action) => {
       state.loading = false
       state.logged = false
+
+      state.username = undefined
+      state.email = undefined
+      state.role = undefined
+      state.id = undefined
+      state.firstname = undefined
+      state.lastname = undefined
     })
   }
 })

@@ -5,21 +5,21 @@ const HeaderNav = () => {
   const user = useSelector(state => state.user)
 
   return (
-    <nav className='flex text-2xl justify-between w-full text-white'>
-      <NavLink to='/' className='text-3xl py-1 px-2 font-bold hover:bg-blue-600'>Ticket-System</NavLink>
+    <nav className='flex justify-between w-full text-2xl text-white'>
+      <NavLink to='/' className='px-2 py-1 text-3xl font-bold hover:bg-blue-600'>Ticket-System</NavLink>
       <div className='flex gap-4'>
         {
-          user.logged
+          !user.loading && user.logged
             ? (
               <>
-                <NavLink to='/profile' className='py-1 px-2 hover:bg-blue-600'>{user.username}</NavLink>
-                <NavLink to='/tickets' className='py-1 px-2 hover:bg-blue-600'>Tickets</NavLink>
+                <NavLink to='/profile' className='px-2 py-1 hover:bg-blue-600'>{user.username}</NavLink>
+                <NavLink to='/tickets' className='px-2 py-1 hover:bg-blue-600'>Tickets</NavLink>
               </>
               )
-            : <NavLink to='/login' className='py-1 px-2 hover:bg-blue-600'>Login</NavLink>
+            : <NavLink to='/login' className='px-2 py-1 hover:bg-blue-600'>Login</NavLink>
         }
 
-        <NavLink to='/search' className='py-1 px-2 hover:bg-blue-600'>Buscar</NavLink>
+        <NavLink to='/search' className='px-2 py-1 hover:bg-blue-600'>Buscar</NavLink>
       </div>
     </nav>
   )

@@ -9,7 +9,7 @@ const Login = () => {
   const navigate = useNavigate()
 
   useEffect(() => {
-    if (user.logged) return navigate('/')
+    if (!user.loading && user.logged) return navigate('/')
   }, [user.logged])
 
   return (
